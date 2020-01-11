@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+          integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+
+</head>
+<body>
+
+<div id="content">
+
+    <h1>Phone Book</h1>
+
+    <form id="create-item-form">
+        <ul class="fields">
+            <li><input type="text" id="firstNameField" placeholder="First Name"></li>
+            <li><input type="text" id="lastNameField" placeholder="Last Name"></li>
+            <li><input type="text" id="phoneNumberField" placeholder="phone number"></li>
+            <li><input type="text" id="eMailField" placeholder="Email"></li>
+            <li><input type="submit" id="submit-form"/></li>
+        </ul>
+    </form>
+
+    <table id="Contacts">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>John</td>
+            <td>Lennon</td>
+            <td>+4074158953</td>
+            <td>JLen@gmail.com</td>
+            <td><a href="#" class="delete-item"><center><i class="far fa-trash-alt"></i></center>
+            </a> </td>
+        </tr>
+        <tr>
+            <td>Adi</td>
+            <td>Burac</td>
+            <td>+4074999953</td>
+            <td>Burak.a@gmail.com</td>
+            <td><a href="#" class="delete-item"><center><i class="far fa-trash-alt"></i></center>
+            </a> </td>
+        </tr>
+        <tr>
+            <td>Nelu</td>
+            <td>Lenow</td>
+            <td>+4071118953</td>
+            <td>Lenown@gmail.com</td>
+            <td><a href="#" class="delete-item"><center><i class="far fa-trash-alt"></i></center>
+        </a> </td>
+        </tr>
+        <tr>
+            <td><input type="text" id="firstNameField" placeholder="First Name"></td>
+            <td><input type="text" id="lastNameField" placeholder="Last Name"></td>
+            <td><input type="text" id="phoneNumberField" placeholder="phone number"></td>
+            <td><input type="text" id="eMailField" placeholder="Email"></td>
+            <td><input type="submit" id="submit-form"/></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="JS/lib/jquery-3.4.1.min.js"></script>
+<script src="JS/phone-book.js"></script>
+
+</body>
+</html>
