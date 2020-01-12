@@ -14,7 +14,8 @@
 
     <h1>Phone Book</h1>
 
-    <form id="create-item-form">
+
+    <!--<form id="create-item-form">
         <ul class="fields">
             <li><input type="text" id="firstNameField" placeholder="First Name"></li>
             <li><input type="text" id="lastNameField" placeholder="Last Name"></li>
@@ -22,7 +23,7 @@
             <li><input type="text" id="eMailField" placeholder="Email"></li>
             <li><input type="submit" id="submit-form"/></li>
         </ul>
-    </form>
+    </form>  -->
 
     <table id="Contacts">
         <thead>
@@ -49,7 +50,9 @@
             <td>Burac</td>
             <td>+4074999953</td>
             <td>Burak.a@gmail.com</td>
-            <td><a href="#" class="delete-item"><center><i class="far fa-trash-alt"></i></center>
+            <td><a href="#" class="delete-item"><center><i class="far fa-trash-alt"></i>  <i class="fas fa-user-edit"></i>
+
+            </center>
             </a> </td>
         </tr>
         <tr>
@@ -68,6 +71,15 @@
             <td><input type="submit" id="submit-form"/></td>
         </tr>
         </tbody>
+        <tfoot>
+        <form id="create-item-form">
+                <td><center><input type="text" id="firstNameField" placeholder="First Name"></center></td>
+                <td><center><input type="text" id="lastNameField" placeholder="Last Name"></center></td>
+                <td><center><input type="text" id="phoneNumberField" placeholder="phone number"></center></td>
+             <!--   <td><center><input type="text" id="eMailField" placeholder="Email"></center></td> -->
+                <td><center><input type="submit" id="submit-form"/></center></td>
+        </form>
+        </tfoot>
     </table>
 
 </div>
