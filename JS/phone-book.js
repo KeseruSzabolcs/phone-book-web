@@ -23,6 +23,7 @@ window.PhoneBook= {
         let firstName = $("#firstNameField").val();
         let lastName = $("#lastNameField").val();
         let phoneNumber = $("#phoneNumberField").val();
+        let eMail = $("#eMailField").val();
 
         var requestBody = {
             firstName: firstName,
@@ -105,14 +106,15 @@ window.PhoneBook= {
 
     getItemTableRow: function (item) {
 
+
         return `<tr>
                 <td>${item.firstName}</td>
                 <td>${item.lastName}</td>
                 <td>${item.phoneNumber}</td>
-               <!-- <td>Blank</td> -->
+                <td><center><input type="checkbox" class="mark-done" data-id="${item.id}" "checked"/></center></td>
                 <td>
                     <center>
-                        <a href="#" class="delete-item" data-id="${item.id}"><i class="far fa-trash-alt"></i></a>
+                        <a href="#" class="delete-item" data-id="${item.id}"><i class="far fa-trash-alt"></i>                </a>
                                         
                         <a href="#" class="edit-item" data-id="${item.id}"><i class="fas fa-user-edit"></i></a>
                     </center>             
@@ -126,7 +128,6 @@ window.PhoneBook= {
     },
 
     bindEvents: function () {
-        var reload;
         $("#create-item-form").submit(function (event) {
             event.preventDefault();
 
@@ -139,10 +140,8 @@ window.PhoneBook= {
             if (editId) {
                 person.id = editId;
                 PhoneBook.updateContact(person.id, person.firstName, person.lastName, person.phoneNumber);
-                reload = true;
             } else {
                 PhoneBook.createContact();
-                reload = true;
             }
             /*            PhoneBook.createContact();
             *  */
@@ -152,19 +151,13 @@ window.PhoneBook= {
             event.preventDefault();
             let id = $(this).data("id");
             PhoneBook.startEdit(id);
-            reload = true;
         });
 
         $("#Contacts").delegate(".delete-item", "click", function (event) {
             event.preventDefault();
             let id = $(this).data("id");
             PhoneBook.deleteContact(id);
-            reload = true;
         });
-        if (reload){
-            location.reload();
-            reload = false;
-        }
     }
 };
 PhoneBook.getContacts();
