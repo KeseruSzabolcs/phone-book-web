@@ -11,22 +11,22 @@ window.PhoneBook= {
         $.ajax({
             url: PhoneBook.API_URL,
             method: "GET"
-        }).done(function(response){
+    }).done(function(response){
             console.log("GET done");
             console.log(response);
-
-            PhoneBook.displayContacts(JSON.parse(response))
+            PhoneBook.load(JSON.parse(response));
+            PhoneBook.displayContacts(JSON.parse(response));
         });
     },
 
     createContact: function(){
-        let lastName = $("#lastNameField").val();
         let firstName = $("#firstNameField").val();
+        let lastName = $("#lastNameField").val();
         let phoneNumber = $("#phoneNumberField").val();
 
         var requestBody = {
-            lastName: lastName,
             firstName: firstName,
+            lastName: lastName,
             phoneNumber: phoneNumber
         };
 
@@ -38,8 +38,10 @@ window.PhoneBook= {
             data: JSON.stringify(requestBody)
         }).done(function () {
             PhoneBook.getContacts();
+            PhoneBook.cancelEdit();
         })
     },
+
 
     updateContact: function(id, firstName, lastName, phoneNumber){
         let requestBody = {
@@ -55,19 +57,25 @@ window.PhoneBook= {
             data: JSON.stringify(requestBody)
         }).done(function () {
             PhoneBook.getContacts();
+            PhoneBook.cancelEdit();
         })
     },
 
     startEdit: function (id) {
+
+        console.log("hello");
+        console.log(persons);
         var editPerson = persons.find(function (person) {
             console.log(person.firstName);
-            return person.id == id;
+            return person.id === id;
         });
         console.debug('startEdit', editPerson);
 
-        $('input[name=firstNameField]').val(editPerson.firstName);
-        $('input[name=lastNameField]').val(editPerson.lastName);
-        $('input[name=phoneNumberField]').val(editPerson.phoneNumber);
+        console.log("first name: " + editPerson.firstName);
+
+        $('#firstNameField').val(editPerson.firstName);
+        $('#lastNameField').val(editPerson.lastName);
+        $('#phoneNumberField').val(editPerson.phoneNumber);
         editId = id;
     },
 
@@ -90,6 +98,11 @@ window.PhoneBook= {
 
     },
 
+    load: (persons) => {
+        // save in persons as global variable
+        window.persons = persons;
+    },
+
     getItemTableRow: function (item) {
 
         return `<tr>
@@ -107,21 +120,29 @@ window.PhoneBook= {
             </tr>`
     },
 
+    cancelEdit: function() {
+        editId = '';
+        document.querySelector("#create-item-form").reset();
+    },
+
     bindEvents: function () {
+        var reload;
         $("#create-item-form").submit(function (event) {
             event.preventDefault();
 
             const person = {
-                firstName: $('input[name=firstNameField]').val(),
-                lastName: $('input[name=lastNameField]').val(),
-                phoneNumber: $('input[name=phoneNumberField]').val()
+                firstName: $('#firstNameField').val(),
+                lastName: $('#lastNameField').val(),
+                phoneNumber: $('#phoneNumberField').val()
             };
 
             if (editId) {
                 person.id = editId;
                 PhoneBook.updateContact(person.id, person.firstName, person.lastName, person.phoneNumber);
+                reload = true;
             } else {
                 PhoneBook.createContact();
+                reload = true;
             }
             /*            PhoneBook.createContact();
             *  */
@@ -131,13 +152,19 @@ window.PhoneBook= {
             event.preventDefault();
             let id = $(this).data("id");
             PhoneBook.startEdit(id);
+            reload = true;
         });
 
         $("#Contacts").delegate(".delete-item", "click", function (event) {
             event.preventDefault();
             let id = $(this).data("id");
             PhoneBook.deleteContact(id);
-        })
+            reload = true;
+        });
+        if (reload){
+            location.reload();
+            reload = false;
+        }
     }
 };
 PhoneBook.getContacts();
